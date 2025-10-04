@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+slowapi
+
+transformers
+
+torch
+
+python-multipart

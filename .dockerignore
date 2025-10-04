@@ -1,0 +1,4 @@
+*_env/
+notebook/
+.vscode/
+__pycache__/
