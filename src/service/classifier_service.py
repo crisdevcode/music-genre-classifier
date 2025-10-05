@@ -9,8 +9,8 @@ import shutil
 class ClassifierService:
     def __init__(self):
         # Load model and feature extractor from 'artifacts' folder
-        self.model = AutoModelForAudioClassification.from_pretrained("artifacts")
-        self.feature_extractor = AutoFeatureExtractor.from_pretrained("artifacts")
+        self.model = AutoModelForAudioClassification.from_pretrained("./artifacts")
+        self.feature_extractor = AutoFeatureExtractor.from_pretrained("./artifacts")
         self.pipe = pipeline(
             "audio-classification",
             model=self.model,
