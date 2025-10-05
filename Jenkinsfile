@@ -70,7 +70,7 @@ pipeline {
                     withCredentials([file(credentialsId: "${KUBECONFIG_CREDENTIAL_ID}", variable: 'KUBECONFIG_FILE')]) {
                         sh '''
                             export KUBECONFIG=${KUBECONFIG_FILE}
-                            kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${DOCKERHUB_REPOSITORY}:latest -n ${K8S_NAMESPACE}
+                            kubectl set image deployment/${DEPLOYMENT_NAME} classifier-container=${DOCKERHUB_REPOSITORY}:latest -n ${K8S_NAMESPACE}
                             kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE}
                         '''
                     }
