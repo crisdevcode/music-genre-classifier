@@ -1,3 +1,5 @@
+import os
+
 from fastapi import UploadFile
 from src.dto.audio_response import AudioResponse
 from transformers import AutoModelForAudioClassification, AutoFeatureExtractor, pipeline
@@ -16,22 +18,18 @@ class ClassifierService:
         )
 
     def classify_audio(self, audio: UploadFile) -> AudioResponse:
-        # Temporarily save the uploaded file to process it with pipeline
         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
             shutil.copyfileobj(audio.file, tmp)
             tmp_path = tmp.name
 
-        # Classify audio
-        preds = self.pipe(tmp_path)
+        try:
+            preds = self.pipe(tmp_path)
+        finally:
+            os.unlink(tmp_path)
 
-        # Build a dictionary with tags and their scores
         outputs = {p["label"]: p["score"] for p in preds}
-
-        # Find tag with highest score
         max_label = max(outputs, key=outputs.get)
         max_score = outputs[max_label]
 
-        response = AudioResponse(genre=max_label, 
-                                 confidence=max_score)
-
-        return response
+        return AudioResponse(genre=max_label, 
+                             confidence=max_score)
