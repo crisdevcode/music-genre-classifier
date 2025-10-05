@@ -34,8 +34,14 @@ pipeline {
         stage('Test Code') {
             steps {
                 script {
-                    echo 'Testing Python Code...'
-                    sh "pytest tests/"
+                    echo 'Setting up Python environment and Testing Python Code...'
+                    sh '''
+                        python3 -m venv venv
+                        . venv/bin/activate
+                        pip install --upgrade pip
+                        pip install pytest
+                        pytest tests/
+                    '''
                 }
             }
         }

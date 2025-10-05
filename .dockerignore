@@ -2,3 +2,4 @@
 notebook/
 .vscode/
 __pycache__/
+Jenkinsfile
