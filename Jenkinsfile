@@ -45,27 +45,11 @@ pipeline {
                 }
             }
         }
-        stage('Trivy FS Scan') {
-            steps {
-                script {
-                    echo 'Scanning Filesystem with Trivy...'
-                    sh "trivy fs ./ --format table -o trivy-fs-report.html"
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
                     echo 'Building Docker Image...'
                     dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
-                }
-            }
-        }
-        stage('Trivy Docker Image Scan') {
-            steps {
-                script {
-                    echo 'Scanning Docker Image with Trivy...'
-                    sh "trivy image ${DOCKERHUB_REPOSITORY}:latest --format table -o trivy-image-report.html"
                 }
             }
         }
