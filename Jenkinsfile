@@ -48,8 +48,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    echo 'Building Docker Image...'
-                    dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
+                    echo 'Building Docker Image without cache...'
+                    dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest", '--no-cache .')
                 }
             }
         }
