@@ -10,6 +10,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application files
 COPY src/ src/
 
+# Copy the local artifacts folder into the image
+COPY artifacts artifacts/
+
 # Expose port
 EXPOSE 8000
 
